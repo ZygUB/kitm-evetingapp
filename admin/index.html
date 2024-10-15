@@ -38,15 +38,15 @@
         <form id="addEventForm">
           <div class="mb-3">
             <label for="eventName" class="form-label">Event Name</label>
-            <input type="text" class="form-control" id="eventName" required>
+            <input type="text" class="form-control" id="eventName" name="name" required>
           </div>
           <div class="mb-3">
             <label for="eventDate" class="form-label">Date</label>
-            <input type="date" class="form-control" id="eventDate" required>
+            <input type="date" class="form-control" id="eventDate" name="date" required>
           </div>
           <div class="mb-3">
             <label for="eventLocation" class="form-label">Location</label>
-            <input type="text" class="form-control" id="eventLocation" required>
+            <input type="text" class="form-control" id="eventLocation" name="location" required>
           </div>
           <button type="button" class="btn btn-primary" id="addEventButton">Add Event</button>
         </form>
@@ -73,25 +73,54 @@
     </div>
   </div>
   
-  <script>
-    // Gaukite visus įvykius ir pateikite juos administratoriaus skydelyje
+   <script>
+    // Tvarkykite formos pateikimą naudodami „JavaScript“ ir neleiskite pateikti numatytosios formos
+    document.getElementById('addEventButton').addEventListener('click', function(e) {
+      e.preventDefault(); 
+
+      // Kurti formos duomenis
+      const formData = new FormData();
+      formData.append('name', document.getElementById('eventName').value);
+      formData.append('date', document.getElementById('eventDate').value);
+      formData.append('location', document.getElementById('eventLocation').value);
+      formData.append('status', 'pending');  // Default status
+
+      // Siųskite formos duomenis per „fetch“ į PHP uždarąją programą
+      fetch('api/add_event.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          console.log('Event added successfully');
+          fetchEvents();  
+        } else {
+          console.error('Error:', data.error);
+        }
+      })
+      .catch(error => console.error('Error adding event:', error));
+
+      // Po sėkmingo pateikimo iš naujo nustatys formos laukus
+      document.getElementById('addEventForm').reset();
+    });
+
+    // Gauti visus įvykius ir pateikti juos administratoriaus skydelyje
     function fetchEvents() {
-      fetch('api/fetch_events.php')
-        .then(response => response.json())
-        .then(data => {
-          renderEvents(data);
-        })
+      fetch('api/fetch_events.php')  
+        .then(response => response.json())  
+        .then(data => renderEvents(data)) 
         .catch(error => console.error('Error fetching events:', error));
     }
-    
-    // Iškviesti funkciją fetchEvents, kai puslapis įkeliamas
+
+    // Įkeliant puslapį, iškviečiama įvykių gavimo funkciją
     document.addEventListener('DOMContentLoaded', fetchEvents);
-    
+
     // Pateikite gautus įvykius HTML lentelėje
     function renderEvents(events) {
       const eventTableBody = document.getElementById('eventTableBody');
-      eventTableBody.innerHTML = '';  // Clear the table body before rendering
-    
+      eventTableBody.innerHTML = ''; 
+
       events.forEach(event => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -106,14 +135,15 @@
           </td>
         `;
         eventTableBody.appendChild(row);
-  });
-}
-    // Patvirtinti įvykį
+      });
+    }
+
+    // Priimti įvykį
     function approveEvent(eventId) {
       const formData = new FormData();
       formData.append('id', eventId);
       formData.append('status', 'approved');
-    
+
       fetch('api/update_event.php', {
         method: 'POST',
         body: formData
@@ -128,11 +158,12 @@
       })
       .catch(error => console.error('Error approving event:', error));
     }
-    //  Ištrinti įvykį
+
+    // Ištrinti įvykį
     function deleteEvent(eventId) {
       const formData = new FormData();
       formData.append('id', eventId);
-    
+
       fetch('api/delete_event.php', {
         method: 'POST',
         body: formData
@@ -148,7 +179,7 @@
       .catch(error => console.error('Error deleting event:', error));
     }
   </script>
-
+  
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 

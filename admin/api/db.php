@@ -2,8 +2,8 @@
 
 $host = 'localhost';  
 $db = 'dbname';    
-$user = 'dbuser'; 
-$pass = 'password';  
+$user = 'dbusername'; 
+$pass = 'dbpassword';  
 $port = 3306; 
 
    
