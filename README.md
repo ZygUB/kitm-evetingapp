@@ -13,12 +13,19 @@ Second in your database click SQL and write this
 
 ```sql
 CREATE TABLE events (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
     location VARCHAR(255) NOT NULL,
-    status VARCHAR(50) DEFAULT 'pending'
+    status varchar(50) DEFAULT 'pending',
+    category varchar(255) NOT NULL,
+    user_id int(11) DEFAULT NULL
 );
+CREATE TABLE photos (
+  id INT(11) AUTO_INCREMENT PRIMARY KEY,
+  photo_path varchar(255) NOT NULL
+);
+ALTER TABLE photos ADD `event_id` INT(11) NOT NULL AFTER id, ADD INDEX event_id (event_id) USING BTREE;
 CREATE TABLE users (
     id INT(11) AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
