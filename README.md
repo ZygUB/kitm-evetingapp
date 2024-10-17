@@ -19,6 +19,19 @@ CREATE TABLE events (
     location VARCHAR(255) NOT NULL,
     status VARCHAR(50) DEFAULT 'pending'
 );
+CREATE TABLE users (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    role ENUM('user', 'admin') DEFAULT 'user', 
+    status ENUM('active', 'banned') DEFAULT 'active'
+);
+```
+after this go to https://bcrypt-generator.com/ write your admin password and choose rounds 10 then come back and write this command, but change values
+```sql
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `role`, `status`) 
+VALUES (NULL, 'admin', 'your hashed password', 'youremail@gmail.com', 'admin', 'active');
 ```
 after this upload the files into hosting and go to /admin/api/db.php and change these to your database info
 ```php
@@ -28,11 +41,11 @@ $user = 'dbuser';
 $pass = 'password';  
 $port = 3306; 
 ```
-and you are done
+and you are done, enjoy
 
 ## Usage
 
-For now admins only can make events, and the auth is not made you can find admin in /admin/index.html
+You can ban users, manage events and add new, and other people can manage them as well
 
 ## WARNING
-THIS IS ALPHA VERSION 1.0, AND YOU ADD THIS WEBSITE ON YOUR RISK!# kitm-evetingapp
+THIS IS ALPHA VERSION 1.0, AND YOU ADD THIS WEBSITE ON YOUR RISK!
