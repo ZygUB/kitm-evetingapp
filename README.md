@@ -54,5 +54,11 @@ and you are done, enjoy
 
 You can ban users, manage events and add new, and other people can manage them as well
 
+## DEMO
+We have demo version to try out
+Login: demoadmin
+Password: Demo123
+https://evetingapp.com/admin/index.php
+
 ## WARNING
 THIS IS ALPHA VERSION 1.0, AND YOU ADD THIS WEBSITE ON YOUR RISK!
