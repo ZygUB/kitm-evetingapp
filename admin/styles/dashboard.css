@@ -1,0 +1,10 @@
+        body {
+            padding-top: 70px; /* Space for fixed navbar */
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 30px;
+        }

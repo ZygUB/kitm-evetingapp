@@ -28,23 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding-top: 70px;
-        }
-        .form-container {
-            max-width: 500px;
-            margin: auto;
-        }
-        .card {
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .navbar-brand {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/register.css">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -53,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
+              <a class="nav-link" href="login.html">Login</a>
             </li>
           </ul>
         </div>
@@ -64,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="card">
             <h3 class="mb-4 text-center">Register</h3>
             <?php echo $message; ?>
-            <form method="POST" action="">
+            <form id="registerForm" method="POST">
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Choose a username" required>
@@ -83,5 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/register.js"></script> 
 </body>
 </html>

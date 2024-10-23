@@ -2,6 +2,7 @@
 session_start();
 require 'api/db.php';
 
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     header('Location: login.php');
     exit();
@@ -9,8 +10,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
 
 $message = '';
 
+
 if (isset($_GET['ban_user_id'])) {
     $ban_user_id = intval($_GET['ban_user_id']);
+    
     
     if ($stmt = $mysqli->prepare("UPDATE users SET status = 'banned' WHERE id = ?")) {
         $stmt->bind_param("i", $ban_user_id);
@@ -33,6 +36,7 @@ if (isset($_GET['ban_user_id'])) {
                     </div>';
     }
 }
+
 
 $users = [];
 if ($result = $mysqli->query("SELECT id, username, email, status FROM users WHERE role != 'admin'")) {
@@ -70,7 +74,7 @@ if ($result = $mysqli->query("SELECT id, username, email, status FROM users WHER
     </style>
 </head>
 <body>
-    <!-- Admin Navbar -->
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Admin Panel</a>
@@ -150,7 +154,9 @@ if ($result = $mysqli->query("SELECT id, username, email, status FROM users WHER
         </div>
     </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     
 </body>
 </html>

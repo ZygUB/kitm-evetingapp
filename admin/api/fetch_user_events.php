@@ -11,6 +11,7 @@ if (!isset($_GET['user_id'])) {
 
 $user_id = intval($_GET['user_id']);
 
+// Prepare statement to prevent SQL injection
 if ($stmt = $mysqli->prepare("SELECT id, name, date, location, category, status FROM events WHERE user_id = ?")) {
     $stmt->bind_param("i", $user_id);
     if ($stmt->execute()) {

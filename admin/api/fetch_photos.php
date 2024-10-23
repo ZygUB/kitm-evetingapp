@@ -1,10 +1,12 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include 'db.php';
 
-$event_id = $_GET['event_id'];
+$event_id = $_GET['event_id'] ?? null;
 
-if (empty($event_id)) {
-    echo json_encode(['error' => 'Invalid event ID']);
+if (!$event_id) {
+    echo json_encode(['error' => 'Event ID is required.']);
     exit;
 }
 
@@ -15,7 +17,7 @@ $result = $stmt->get_result();
 
 $photos = [];
 while ($row = $result->fetch_assoc()) {
-    $photos[] = ['photo_path' => str_replace(__DIR__ . '/../', '', $row['photo_path'])];  // Relative path for the browser
+    $photos[] = ['photo_path' => $row['photo_path']];
 }
 
 echo json_encode($photos);
