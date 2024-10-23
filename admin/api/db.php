@@ -1,9 +1,9 @@
 <?php
 
 $host = 'localhost';  
-$db = 'u547284030_kitm';    
-$user = 'u547284030_kitm'; 
-$pass = 'g1=Vb&ARg';  
+$db = 'dbname';    
+$user = 'dbuser'; 
+$pass = 'password';  
 $port = 3306; 
 
    
